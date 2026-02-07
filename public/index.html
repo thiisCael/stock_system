@@ -1,307 +1,266 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+      };
+    </script>
+    <title>Estoque</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-    }
-  </script>
-  <title>Stock Control - MVC</title>
-</head>
+  <body
+    class="bg-slate-50 dark:bg-slate-900 p-6 transition-colors duration-200"
+  >
+    <div class="max-w-6xl mx-auto">
+      <header
+        class="mb-8 border-b pb-4 border-slate-200 dark:border-slate-700 flex justify-between items-center"
+      >
+        <div>
+          <h1 class="text-3xl font-bold text-slate-800 dark:text-slate-100">
+            Sistema de Gestão de Stock
+          </h1>
+          <p class="text-slate-500 dark:text-slate-400">
+            Controlo de Raticidas, Inseticidas e Maquinários
+          </p>
+        </div>
+        <button
+          id="darkModeToggle"
+          class="p-3 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+        >
+          <svg
+            class="w-6 h-6 text-slate-800 dark:hidden"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            ></path>
+          </svg>
+          <svg
+            class="w-6 h-6 text-slate-200 hidden dark:block"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            ></path>
+          </svg>
+        </button>
+      </header>
 
-<body class="bg-slate-50 dark:bg-slate-900 p-6 transition-colors duration-200">
-  <div class="max-w-6xl mx-auto">
-    <header class="mb-8 border-b pb-4 border-slate-200 dark:border-slate-700 flex justify-between items-center">
-      <div>
-        <h1 class="text-3xl font-bold text-slate-800 dark:text-slate-100">Sistema de Gestão de Stock</h1>
-        <p class="text-slate-500 dark:text-slate-400">Controlo de Raticidas, Inseticidas e Maquinários</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section
+          class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700"
+        >
+          <h2 class="text-xl font-bold mb-4 text-blue-700 dark:text-blue-400">
+            Novo Produto
+          </h2>
+          <form id="prodForm" class="space-y-4">
+            <input
+              type="text"
+              id="nome"
+              placeholder="Nome do Produto"
+              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+              required
+            />
+
+            <select
+              id="categoria"
+              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+            >
+              <option value="Raticida">Raticida</option>
+              <option value="Inseticida">Inseticida</option>
+              <option value="Maquinário">Maquinário</option>
+            </select>
+
+            <input
+              type="text"
+              id="sku"
+              placeholder="SKU/Código"
+              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+              required
+            />
+
+            <input
+              type="text"
+              id="lote"
+              placeholder="Lote (ex: A123)"
+              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+              required
+            />
+
+            <input
+              type="date"
+              id="vencimento"
+              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+              required
+            />
+
+            <input
+              type="number"
+              id="qtd_ini"
+              placeholder="Quantidade"
+              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+              required
+            />
+
+            <button
+              type="submit"
+              class="w-full bg-blue-600 dark:bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+            >
+              Adicionar ao Estoque
+            </button>
+          </form>
+        </section>
+
+        <section
+          class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700"
+        >
+          <h2
+            class="text-xl font-bold mb-4 text-emerald-700 dark:text-emerald-400"
+          >
+            Registar Movimentação
+          </h2>
+          <form id="movForm" class="space-y-4">
+            <select
+              id="prodSelect"
+              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+            ></select>
+
+            <div class="flex gap-4">
+              <select
+                id="tipoMov"
+                required
+                class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+              >
+                <option value="ENTRADA">Entrada</option>
+                <option value="SAIDA">Saída</option>
+                <option value="RETORNO">Devolução</option>
+              </select>
+              <input
+                type="number"
+                id="qtdMov"
+                placeholder="Quantidade"
+                class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+                required
+              />
+            </div>
+
+            <input
+              type="text"
+              id="resp"
+              placeholder="Nome do Responsável"
+              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+              required
+            />
+
+            <button
+              type="submit"
+              class="w-full bg-emerald-600 dark:bg-emerald-500 text-white font-bold py-2 rounded hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors"
+            >
+              Confirmar
+            </button>
+          </form>
+        </section>
       </div>
-      <button id="darkModeToggle"
-        class="p-3 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
-        <svg class="w-6 h-6 text-slate-800 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-        </svg>
-        <svg class="w-6 h-6 text-slate-200 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
-          </path>
-        </svg>
-      </button>
-    </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <section
-        class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
-        <h2 class="text-xl font-bold mb-4 text-blue-700 dark:text-blue-400">Novo Produto</h2>
-        <form id="prodForm" class="space-y-4">
-          <input type="text" id="nome" placeholder="Nome do Produto"
-            class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
-            required>
-
-          <select id="categoria"
-            class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100">
-            <option value="Raticida">Raticida</option>
-            <option value="Inseticida">Inseticida</option>
-            <option value="Maquinário">Maquinário</option>
-          </select>
-
-          <input type="text" id="sku" placeholder="SKU/Código"
-            class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
-            required>
-
-          <input type="text" id="lote" placeholder="Lote (ex: A123)"
-            class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
-            required>
-
-          <input type="date" id="vencimento"
-            class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
-            required>
-
-          <input type="number" id="qtd_ini" placeholder="Quantidade"
-            class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
-            required>
-
-          <button type="submit"
-            class="w-full bg-blue-600 dark:bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors">
-            Adicionar ao Estoque
-          </button>
-        </form>
+        class="mt-8 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700"
+      >
+        <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-slate-100">
+          Stock Atual
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-slate-100 dark:bg-slate-700">
+              <tr>
+                <th class="p-3 text-slate-700 dark:text-slate-200">SKU</th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">Produto</th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">
+                  Categoria
+                </th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">Lote</th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">
+                  Vencimento
+                </th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">
+                  Saldo Atual
+                </th>
+              </tr>
+            </thead>
+            <tbody id="stockTableBody"></tbody>
+          </table>
+        </div>
       </section>
 
       <section
-        class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
-        <h2 class="text-xl font-bold mb-4 text-emerald-700 dark:text-emerald-400">Registar Movimentação</h2>
-        <form id="movForm" class="space-y-4">
-          <select id="prodSelect"
-            class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"></select>
+        class="mt-8 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700"
+      >
+        <h2 class="text-xl font-bold mb-4 text-red-700 dark:text-red-400">
+          Histórico de Movimentações
+        </h2>
 
-          <div class="flex gap-4">
-            <select id="tipoMov"
-              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100">
-              <option value="ENTRADA">Entrada</option>
-              <option value="SAIDA">Saída</option>
-              <option value="RETORNO">Devolução</option>
-            </select>
-            <input type="number" id="qtdMov" placeholder="Quantidade"
-              class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
-              required>
-          </div>
+        <div class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+          <input
+            type="date"
+            id="filterDate"
+            class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+          />
 
-          <input type="text" id="resp" placeholder="Nome do Responsável"
-            class="w-full border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
-            required>
+          <input
+            type="text"
+            id="filterProduto"
+            placeholder="Produto"
+            class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+          />
 
-          <button type="submit"
-            class="w-full bg-emerald-600 dark:bg-emerald-500 text-white font-bold py-2 rounded hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors">
-            Confirmar
+          <input
+            type="text"
+            id="filterResponsavel"
+            placeholder="Responsável"
+            class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+          />
+
+          <button
+            onclick="applyFilters()"
+            class="bg-blue-600 dark:bg-blue-500 text-white font-bold rounded px-4 py-2 hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+          >
+            Filtrar
           </button>
-        </form>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-slate-100 dark:bg-slate-700">
+              <tr>
+                <th class="p-3 text-slate-700 dark:text-slate-200">
+                  Data/Hora
+                </th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">Produto</th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">Tipo</th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">Qtd</th>
+                <th class="p-3 text-slate-700 dark:text-slate-200">
+                  Responsável
+                </th>
+              </tr>
+            </thead>
+            <tbody id="movTableBody"></tbody>
+          </table>
+        </div>
       </section>
     </div>
-
-    <section
-      class="mt-8 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
-      <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-slate-100">Stock Atual</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left">
-          <thead class="bg-slate-100 dark:bg-slate-700">
-            <tr>
-              <th class="p-3 text-slate-700 dark:text-slate-200">SKU</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Produto</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Categoria</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Lote</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Vencimento</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Saldo Atual</th>
-            </tr>
-          </thead>
-          <tbody id="stockTableBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section
-      class="mt-8 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
-      <h2 class="text-xl font-bold mb-4 text-red-700 dark:text-red-400">Histórico de Movimentações</h2>
-
-      <div class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-        <input type="date" id="filterDate"
-          class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100" />
-
-        <input type="text" id="filterProduto" placeholder="Produto"
-          class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500" />
-
-        <input type="text" id="filterResponsavel" placeholder="Responsável"
-          class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500" />
-
-        <button onclick="applyFilters()"
-          class="bg-blue-600 dark:bg-blue-500 text-white font-bold rounded px-4 py-2 hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors">
-          Filtrar
-        </button>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full text-left">
-          <thead class="bg-slate-100 dark:bg-slate-700">
-            <tr>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Data/Hora</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Produto</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Tipo</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Qtd</th>
-              <th class="p-3 text-slate-700 dark:text-slate-200">Responsável</th>
-            </tr>
-          </thead>
-          <tbody id="movTableBody"></tbody>
-        </table>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    const API_URL = '/api';
-    let movimentacoesCache = [];
-
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const html = document.documentElement;
-
-    if (localStorage.getItem('darkMode') === 'true' ||
-      (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      html.classList.add('dark');
-    }
-
-    darkModeToggle.addEventListener('click', () => {
-      html.classList.toggle('dark');
-      localStorage.setItem('darkMode', html.classList.contains('dark'));
-    });
-
-    async function loadData() {
-      try {
-        const resProd = await fetch(`${API_URL}/produtos`);
-        const produtos = await resProd.json();
-
-        const resMov = await fetch(`${API_URL}/movimentacoes`);
-        movimentacoesCache = await resMov.json();
-
-        // 🔥 CORREÇÃO: Mudou p.vencimento para p.data_vencimento
-        document.getElementById('stockTableBody').innerHTML = produtos.map(p => `
-          <tr class="border-b border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700">
-            <td class="p-3 text-slate-800 dark:text-slate-200">${p.sku}</td>
-            <td class="p-3 font-medium text-slate-800 dark:text-slate-200">${p.nome}</td>
-            <td class="p-3 text-slate-600 dark:text-slate-400">${p.categoria}</td>
-            <td class="p-3 text-slate-600 dark:text-slate-400">${p.lote || '-'}</td>
-            <td class="p-3 text-slate-600 dark:text-slate-400">${p.data_vencimento ? new Date(p.data_vencimento).toLocaleDateString('pt-PT') : '-'}</td>
-            <td class="p-3 font-bold ${p.saldo_atual <= 0 ? 'text-red-600 dark:text-red-400' : 'text-slate-800 dark:text-slate-200'}">${p.saldo_atual}</td>
-          </tr>
-        `).join('');
-
-        renderMovimentacoes(movimentacoesCache);
-
-        document.getElementById('prodSelect').innerHTML = produtos.map(p => `
-          <option value="${p.id}">${p.nome} (SKU: ${p.sku}) ${p.lote ? '- Lote: ' + p.lote : ''}</option>
-        `).join('');
-
-      } catch (error) {
-        console.error("Erro ao carregar dados:", error);
-      }
-    }
-
-    function renderMovimentacoes(movimentacoes) {
-      document.getElementById('movTableBody').innerHTML = movimentacoes.map(m => `
-        <tr class="border-b border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-sm">
-          <td class="p-3 text-slate-500 dark:text-slate-400">${new Date(m.data_movimentacao).toLocaleString('pt-PT', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      })}</td>
-          <td class="p-3 font-medium text-slate-800 dark:text-slate-200">${m.produto_nome || 'Produto Removido'}</td>
-          <td class="p-3">
-            <span class="px-2 py-1 rounded text-xs font-bold ${m.tipo.includes('SAIDA') || m.tipo.includes('Saída') ? 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'}">
-              ${m.tipo}
-            </span>
-          </td>
-          <td class="p-3 text-slate-800 dark:text-slate-200">${m.quantidade}</td>
-          <td class="p-3 italic text-slate-600 dark:text-slate-400">${m.responsavel}</td>
-        </tr>
-      `).join('');
-    }
-
-    function applyFilters() {
-      const dataFiltro = document.getElementById('filterDate').value;
-      const produtoFiltro = document.getElementById('filterProduto').value.toLowerCase();
-      const responsavelFiltro = document.getElementById('filterResponsavel').value.toLowerCase();
-
-      let movimentacoesFiltradas = movimentacoesCache;
-
-      if (dataFiltro) {
-        movimentacoesFiltradas = movimentacoesFiltradas.filter(m => {
-          const dataMovimentacao = new Date(m.data_movimentacao).toISOString().split('T')[0];
-          return dataMovimentacao === dataFiltro;
-        });
-      }
-
-      if (produtoFiltro) {
-        movimentacoesFiltradas = movimentacoesFiltradas.filter(m =>
-          (m.produto_nome || '').toLowerCase().includes(produtoFiltro)
-        );
-      }
-
-      if (responsavelFiltro) {
-        movimentacoesFiltradas = movimentacoesFiltradas.filter(m =>
-          m.responsavel.toLowerCase().includes(responsavelFiltro)
-        );
-      }
-
-      renderMovimentacoes(movimentacoesFiltradas);
-    }
-
-    document.getElementById('prodForm').onsubmit = async (e) => {
-      e.preventDefault();
-      const data = {
-        nome: document.getElementById('nome').value,
-        categoria: document.getElementById('categoria').value,
-        sku: document.getElementById('sku').value,
-        lote: document.getElementById('lote').value,
-        vencimento: document.getElementById('vencimento').value,
-        quantidade_inicial: document.getElementById('qtd_ini').value
-      };
-
-      await fetch(`${API_URL}/produtos`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
-      e.target.reset();
-      loadData();
-    };
-
-    document.getElementById('movForm').onsubmit = async (e) => {
-      e.preventDefault();
-      const data = {
-        produto_id: document.getElementById('prodSelect').value,
-        tipo: document.getElementById('tipoMov').value,
-        quantidade: document.getElementById('qtdMov').value,
-        responsavel: document.getElementById('resp').value
-      };
-
-      await fetch(`${API_URL}/movimentacoes`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
-      e.target.reset();
-      loadData();
-    };
-
-    loadData();
-  </script>
-</body>
-
+    <script type="module" src="js/app.js"></script>
+  </body>
 </html>
