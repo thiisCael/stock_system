@@ -90,23 +90,23 @@ O **Sistema de Controle de Estoque** é uma solução robusta para gerenciamento
 O projeto segue o padrão **MVC** (Model-View-Controller) com camada adicional de **Services** para regras de negócio:
 
 ```
-stock-management/
+stock-system/
 │
 ├── src/
 │   ├── config/
-│   │   └── database.js          # Configuração e pool de conexões PostgreSQL
+│   │   └── db.js          # Configuração e pool de conexões PostgreSQL
 │   │
 │   ├── models/
-│   │   ├── productModel.js      # Queries de produtos
-│   │   └── movementModel.js     # Queries de movimentações (com transactions)
+│   │   ├── inventoryModel.js      # Queries de produtos
+│   │        
 │   │
 │   ├── services/
-│   │   ├── productService.js    # Regras de negócio de produtos
-│   │   └── movementService.js   # Validações e lógica de movimentações
+│   │   ├── inventoryService.js    # Regras de negócio de produtos
+│   │      
 │   │
 │   ├── controllers/
-│   │   ├── productController.js # Endpoints de produtos
-│   │   └── movementController.js# Endpoints de movimentações
+│   │   ├── inventoryController.js # Endpoints de produtos
+│   │   
 │   │
 │   └── app.js                   # Configuração do servidor Express
 │
@@ -116,14 +116,14 @@ stock-management/
 │   └── js/
 │       ├── services/
 │       │   ├── api.js           # Comunicação com backend (fetch)
-│       │   └── productService.js
+│       │  
 │       │
 │       ├── ui/
-│       │   ├── productUI.js     # Renderização de produtos
-│       │   └── movementUI.js    # Renderização de movimentações
+│       │   ├── dom.js     # Renderização de produtos
+│       │       
 │       │
 │       ├── utils/
-│       │   └── formatters.js    # Utilitários (datas, moedas, etc.)
+│       │   └── format.js    # Utilitários (datas, moedas, etc.)
 │       │
 │       └── app.js               # Inicialização e event listeners
 │
@@ -168,7 +168,7 @@ Certifique-se de ter instalado:
 #### 1️⃣ Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/stock-management.git
+git clone https://github.com/thiiscael/stock-system.git
 cd stock-management
 ```
 
