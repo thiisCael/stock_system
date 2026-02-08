@@ -28,7 +28,7 @@ export const upsertProduct = async (
     } else {
       //criar
       const res = await pool.query(
-        'INSERT INTO produtos (nome, categoria, sku, saldo_atual, lote, data_vencimento, data_cadastro) VALUES( $1,$2,$3,$4,$5,$6, CURRENT_DATE) RETURNING *',
+        'INSERT INTO produtos (nome, categoria, sku, saldo_atual, lote, data_vencimento, data_cadastro) VALUES( $1,$2,$3,$4,$5,$6, CURRENT_DATE) RETURNING * ',
         [
           nome,
           categoria || 'Sem categoria',
@@ -122,7 +122,7 @@ export const getAllMovements = async () => {
             p.saldo_atual
         FROM movimentacoes m 
         JOIN produtos p ON m.produto_id = p.id 
-        ORDER BY m.data_movimentacao DESC
+        ORDER BY m.data_movimentacao DESC 
     `);
   return res.rows;
 };
@@ -141,12 +141,13 @@ export const searchMovements = async filtros => {
 
   //se tiver data de inicio
   if (data_inicio) {
-    query += `AND m.data_movimentacao >= $${count}`;
-    params.push(`${data_inicio}00:00:00`);
+    query += ` AND m.data_movimentacao >= $${count}`;
+    params.push(`${data_inicio} 00:00:00`);
+    count++; 
   }
   //se tiver data fim
   if (data_fim) {
-    query += `AND m.data_movimentacao <= $${count}`;
+    query += ` AND m.data_movimentacao <= $${count}`;
     params.push(`${data_fim} 23:59:59`); //pega até o ultimo segundo do dia
     count++;
   }
@@ -163,7 +164,7 @@ export const searchMovements = async filtros => {
     count++;
   }
 
-  query += `ORDER BY m.data_movimentacao DESC`;
+  query += ` ORDER BY m.data_movimentacao DESC `;
 
   try {
     const res = await pool.query(query, params);

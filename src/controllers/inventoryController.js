@@ -53,6 +53,7 @@ export const getReport = async (req, res) => {
     const report = await inventoryService.gerarRelatorio(req.query); 
     res.json(report); 
   }catch(error) { 
+    console.error("Erro no relatorio", error)
     res.status(500).json({error: error.message}); 
   }
 }

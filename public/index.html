@@ -216,6 +216,7 @@
           <input
             type="date"
             id="filterDate"
+            oninput="verificarLimpeza"
             class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
           />
 
@@ -223,6 +224,7 @@
             type="text"
             id="filterProduto"
             placeholder="Produto"
+            oninput="verificarLimpeza"
             class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
           />
 
@@ -230,11 +232,12 @@
             type="text"
             id="filterResponsavel"
             placeholder="Responsável"
+            oninput="verificarLimpeza(this)"
             class="border border-slate-300 dark:border-slate-600 p-2 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
           />
 
           <button
-            onclick="applyFilters()"
+            onclick="filtrarRelatorio(this)"
             class="bg-blue-600 dark:bg-blue-500 text-white font-bold rounded px-4 py-2 hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
           >
             Filtrar
