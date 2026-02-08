@@ -208,11 +208,50 @@
       <section
         class="mt-8 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700"
       >
+
         <h2 class="text-xl font-bold mb-4 text-red-700 dark:text-red-400">
           Histórico de Movimentações
         </h2>
 
-        <div class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        
+          <div
+            class="bg-white rounded-lg shadow-md p-5 border-l-4 border-green-500 flex items-center justify-between transition-transform hover:scale-105">
+            <div>
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Entradas</p>
+              <p class="text-2xl font-bold text-gray-800 mt-1" id="cardEntradas">0</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full text-green-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+              </svg>
+            </div>
+          </div>
+        
+          <div
+            class="bg-white rounded-lg shadow-md p-5 border-l-4 border-red-500 flex items-center justify-between transition-transform hover:scale-105">
+            <div>
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Saídas</p>
+              <p class="text-2xl font-bold text-gray-800 mt-1" id="cardSaidas">0</p>
+            </div>
+            <div class="bg-red-100 p-3 rounded-full text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
+          </div>
+        
+          <div
+            class="bg-white rounded-lg shadow-md p-5 border-l-4 border-blue-500 flex items-center justify-between transition-transform hover:scale-105 sm:col-span-2 lg:col-span-1">
+            <div>
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Saldo Atual</p>
+              <p class="text-2xl font-bold text-gray-800 mt-1" id="cardSaldo">0</p>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+            </div>
+          </div>
+        
+        </div>
           <input
             type="date"
             id="filterDate"

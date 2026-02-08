@@ -28,29 +28,67 @@ export const dom = {
         `).join('');
     },
 
-    renderTabelaMovimentacoes(movimentacoes) {
-        const tbody = document.getElementById('movTableBody');
+   renderTabelaMovimentacoes(movimentacoes) {
+    const tbody = document.getElementById('movTableBody');
+    tbody.innerHTML = '';
+
+    // --- PARTE NOVA: ATUALIZA OS CARDS ---
+    let totalEntrada = 0;
+    let totalSaida = 0;
+
+    // Calcula somando item por item
+    movimentacoes.forEach(mov => {
+        // Garante que é número (às vezes vem string do banco)
+        const qtd = Number(mov.quantidade); 
         
-        if (movimentacoes.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">Nenhum registro.</td></tr>';
-            return;
+        if (mov.tipo === 'ENTRADA' || mov.tipo === 'RETORNO') {
+            totalEntrada += qtd;
+        } else {
+            totalSaida += qtd;
         }
+    });
 
-        tbody.innerHTML = movimentacoes.map(m => {
-            const isSaida = ['SAIDA', 'VENDA', 'PERDA'].includes(m.tipo);
-            const badgeClass = isSaida
-                ? 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300'
-                : 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300';
+    // Joga os valores na tela
+    document.getElementById('cardEntradas').innerText = totalEntrada;
+    document.getElementById('cardSaidas').innerText = totalSaida;
+    document.getElementById('cardSaldo').innerText = (totalEntrada - totalSaida);
+    // -------------------------------------
 
-            return `
-                <tr class="border-b border-slate-200 dark:border-slate-700">
-                    <td class="p-3">${format.dataHora(m.data_movimentacao)}</td>
-                    <td class="p-3 font-medium">${m.produto_nome || 'Produto Removido'}</td>
-                    <td class="p-3"><span class="px-2 py-1 rounded text-xs font-bold ${badgeClass}">${m.tipo}</span></td>
-                    <td class="p-3">${m.quantidade}</td>
-                    <td class="p-3 italic">${m.responsavel}</td>
-                </tr>
-            `;
-        }).join('');
+    // Verifica se está vazio (o código que já tínhamos)
+    if (movimentacoes.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-500">Nenhum registro encontrado 😕</td></tr>`;
+        
+        // Zera os cards se não tiver resultado
+        document.getElementById('cardEntradas').innerText = "0";
+        document.getElementById('cardSaidas').innerText = "0";
+        document.getElementById('cardSaldo').innerText = "0";
+        return;
     }
+
+    // Renderiza as linhas
+    movimentacoes.forEach(mov => {
+        const tr = document.createElement('tr');
+        tr.className = "border-b hover:bg-gray-50"; 
+        
+        // Formata a data bonitinha
+        const dataFormatada = new Date(mov.data_movimentacao).toLocaleString('pt-BR', {
+            day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit'
+        });
+
+        tr.innerHTML = `
+            <td class="p-3 text-sm text-gray-600">${dataFormatada}</td>
+            <td class="p-3 text-sm font-medium text-gray-800">${mov.produto_nome || '-'}</td>
+            <td class="p-3 text-sm">
+                <span class="${mov.tipo === 'ENTRADA' || mov.tipo === 'RETORNO' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'} px-2 py-1 rounded-full text-xs font-bold">
+                    ${mov.tipo}
+                </span>
+            </td>
+            <td class="p-3 text-sm font-bold text-center">${mov.quantidade}</td>
+            <td class="p-3 text-sm text-gray-500 capitalize">${mov.responsavel}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+    
 };
